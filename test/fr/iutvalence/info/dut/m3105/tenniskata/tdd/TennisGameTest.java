@@ -27,4 +27,11 @@ public class TennisGameTest
 		this.tennisGame.serverHasScored();
 		assertEquals(this.tennisGame.getScore(), "fifteen-love");
 	}
+	
+	@Test
+	public void ifServerHasNotScoredAndReceiverHasScored1TimeScoreShouldBe_love_fifteen()
+	{
+		this.tennisGame.receiverHasScored();
+		assertEquals(this.tennisGame.getScore(), "love-fifteen");
+	}
 }
