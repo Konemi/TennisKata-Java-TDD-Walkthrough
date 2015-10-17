@@ -16,20 +16,20 @@ public class TennisGameTest
 	}
 	
 	@Test
-	public void ifServerHasNotScoredAndReceiverHasNotScoredScoreShouldBe_love_all()
+	public void ifPointsScoredAre_0_0_ScoreShouldBe_love_all()
 	{
 		assertEquals(this.tennisGame.getScore(), "love-all");
 	}
 	
 	@Test
-	public void ifServerHasScored1TimeAndReceiverHasNotScoredScoreShouldBe_fifteen_love()
+	public void ifPointsScoredAre_1_0_ScoreShouldBe_fifteen_love()
 	{
 		this.tennisGame.serverHasScored();
 		assertEquals(this.tennisGame.getScore(), "fifteen-love");
 	}
 	
 	@Test
-	public void ifServerHasNotScoredAndReceiverHasScored1TimeScoreShouldBe_love_fifteen()
+	public void ifPointsScoredAre_0_1_ScoreShouldBe_love_fifteen()
 	{
 		this.tennisGame.receiverHasScored();
 		assertEquals(this.tennisGame.getScore(), "love-fifteen");
