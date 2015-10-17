@@ -9,6 +9,24 @@ public class TennisGameTest
 {
 	private TennisGame tennisGame ;
 	
+	private void setPlayersPoints(int serverPoints, int receiverPoints)
+	{
+		this.setServerPoints(serverPoints);
+		this.setReceiverPoints(receiverPoints);
+	}
+	
+	private void setServerPoints(int points)
+	{
+		for (int point=0; point<points; point++)
+			this.tennisGame.serverHasScored();
+	}
+
+	private void setReceiverPoints(int points)
+	{
+		for (int point=0; point<points; point++)
+			this.tennisGame.receiverHasScored();
+	}
+	
 	@Before
 	public void newTennisGame()
 	{
@@ -18,20 +36,21 @@ public class TennisGameTest
 	@Test
 	public void ifPointsScoredAre_0_0_ScoreShouldBe_love_all()
 	{
+		this.setPlayersPoints(0, 0);
 		assertEquals(this.tennisGame.getScore(), "love-all");
 	}
 	
 	@Test
 	public void ifPointsScoredAre_1_0_ScoreShouldBe_fifteen_love()
 	{
-		this.tennisGame.serverHasScored();
+		this.setPlayersPoints(1, 0);
 		assertEquals(this.tennisGame.getScore(), "fifteen-love");
 	}
 	
 	@Test
 	public void ifPointsScoredAre_0_1_ScoreShouldBe_love_fifteen()
 	{
-		this.tennisGame.receiverHasScored();
+		this.setPlayersPoints(0, 1);
 		assertEquals(this.tennisGame.getScore(), "love-fifteen");
 	}
 }
