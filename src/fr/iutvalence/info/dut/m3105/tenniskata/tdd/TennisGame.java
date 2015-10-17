@@ -2,20 +2,33 @@ package fr.iutvalence.info.dut.m3105.tenniskata.tdd;
 
 public class TennisGame
 {
-	private String score;
+	private final static String[] INDIVIDUAL_SCORE = new String[] {"love", "fifteen"};
+	
+	private int serverPoints;
+	
+	private int receiverPoints;
 	
 	public TennisGame()
 	{
-		this.score = "love-all";
+		this.serverPoints = 0;
+		this.receiverPoints = 0;
 	}
 	
 	public String getScore()
 	{
-		return this.score;
+		if (this.serverPoints == this.receiverPoints)
+			return INDIVIDUAL_SCORE[this.serverPoints]+"-all";
+		
+		return INDIVIDUAL_SCORE[this.serverPoints]+"-"+INDIVIDUAL_SCORE[this.receiverPoints];
 	}
 
 	public void serverHasScored()
 	{
-		this.score = "fifteen-love";
+		this.serverPoints++;
+	}
+
+	public void receiverHasScored()
+	{
+		this.receiverPoints++;		
 	}
 }
