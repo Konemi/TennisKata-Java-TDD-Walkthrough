@@ -6,47 +6,83 @@ public class TennisGame
 
 	private static final int POINT_AMOUNT_FOR_DEUCE_SCORE = 3;
 
-	private final static String[] INDIVIDUAL_SCORE = new String[] {"love", "fifteen", "thirty", "forty"};
-	
+	private final static String[] INDIVIDUAL_SCORE = new String[] { "love", "fifteen", "thirty", "forty" };
+
 	private int serverPoints;
-	
+
 	private int receiverPoints;
-	
+
 	public TennisGame()
 	{
 		this.serverPoints = 0;
 		this.receiverPoints = 0;
 	}
-	
+
 	public String getScore()
 	{
-		if (playersHaveScoredSameAmountOfPoints()) 
-			return getScoreWhenTied();
-		
+		if (isTiedScore()) return getScoreWhenTied();
+
 		return getScoreWhenNotTied();
 	}
 
-	private boolean playersHaveScoredSameAmountOfPoints()
-	{
+	private boolean isTiedScore()
+	{		
 		return this.serverPoints == this.receiverPoints;
 	}
 	
 	private String getScoreWhenTied()
 	{
-		if (this.serverPoints == POINT_AMOUNT_FOR_DEUCE_SCORE)
-			return "deuce";
-		else
-			return INDIVIDUAL_SCORE[this.serverPoints]+"-all";
+		if (isDeuce()) return getScoreWhenDeuce();
+		
+		return getScoreWhenTiedScoreBelowDeuce();
+	}
+
+	private boolean isDeuce()
+	{
+		return this.serverPoints == POINT_AMOUNT_FOR_DEUCE_SCORE;
+	}
+
+	private String getScoreWhenDeuce()
+	{
+		return "deuce";
+	}
+
+	private String getScoreWhenTiedScoreBelowDeuce()
+	{
+		return INDIVIDUAL_SCORE[this.serverPoints] + "-all";
 	}
 
 	private String getScoreWhenNotTied()
 	{
-		if (this.serverPoints == POINT_AMOUNT_FOR_ADVANTAGE_SCORE)
-			return "advantage in";
-		if (this.receiverPoints == POINT_AMOUNT_FOR_ADVANTAGE_SCORE)
-			return "advantage out";
-		
-		return INDIVIDUAL_SCORE[this.serverPoints]+"-"+INDIVIDUAL_SCORE[this.receiverPoints];
+		if (isAdvantage()) return getScoreWhenAdvantage();
+
+		return getScoreWhenNotTiedBelowDeuce();
+	}
+
+	private boolean isAdvantage()
+	{
+		return (isAdvantageIn() || isAdvantageOut());
+	}
+
+	private String getScoreWhenAdvantage()
+	{
+		if (isAdvantageIn()) return "advantage in";
+		return "advantage out";
+	}
+
+	private String getScoreWhenNotTiedBelowDeuce()
+	{
+		return INDIVIDUAL_SCORE[this.serverPoints] + "-" + INDIVIDUAL_SCORE[this.receiverPoints];
+	}
+
+	private boolean isAdvantageOut()
+	{
+		return this.receiverPoints == POINT_AMOUNT_FOR_ADVANTAGE_SCORE;
+	}
+
+	private boolean isAdvantageIn()
+	{
+		return this.serverPoints == POINT_AMOUNT_FOR_ADVANTAGE_SCORE;
 	}
 
 	public void serverHasScored()
@@ -56,6 +92,6 @@ public class TennisGame
 
 	public void receiverHasScored()
 	{
-		this.receiverPoints++;		
+		this.receiverPoints++;
 	}
 }
