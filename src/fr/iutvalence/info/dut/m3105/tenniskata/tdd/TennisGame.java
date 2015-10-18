@@ -37,6 +37,11 @@ public class TennisGame
 
 	private String getScoreWhenNotTied()
 	{
+		if (this.serverPoints == 4)
+			return "advantage in";
+		if (this.receiverPoints == 4)
+			return "advantage out";
+		
 		return INDIVIDUAL_SCORE[this.serverPoints]+"-"+INDIVIDUAL_SCORE[this.receiverPoints];
 	}
 
