@@ -14,8 +14,10 @@ public enum TennisGameScoreExpectation
 	THIRTY_FIFTEEN(2,1,"thirty-fifteen"),
 	THIRTY_ALL(2,2,"thirty-all"),
 	THIRTY_FORTY(2,3,"thirty-forty"),
-	DEUCE(3,3,"deuce");
-
+	DEUCE(3,3,"deuce"),
+	AD_IN(4,3, "advantage in"),
+	AD_OUT(3,4, "advantage out");
+	
 	private final int serverPoints;
 	
 	private final int receiverPoints;
