@@ -13,7 +13,8 @@ public enum TennisGameScoreExpectation
 	THIRTY_LOVE(2,0,"thirty-love"),
 	THIRTY_FIFTEEN(2,1,"thirty-fifteen"),
 	THIRTY_ALL(2,2,"thirty-all"),
-	THIRTY_FORTY(2,3,"thirty-forty");
+	THIRTY_FORTY(2,3,"thirty-forty"),
+	DEUCE(3,3,"deuce");
 
 	private final int serverPoints;
 	
