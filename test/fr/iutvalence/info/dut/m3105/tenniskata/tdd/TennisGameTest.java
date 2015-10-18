@@ -50,4 +50,25 @@ public class TennisGameTest
 		tennisGame.serverHasScored();
 		assertScoreIsAsExpected(tennisGame, TennisGameScoreExpectation.DEUCE);
 	}
+	
+	@Test
+	public void testGameAfterAdvantage()
+	{
+		testGameInAfterAdvantage();
+		testGameOutAfterAdvantage();
+	}
+
+	private void testGameInAfterAdvantage()
+	{
+		TennisGame tennisGame = setAndTestScoreAgainstExpectation(TennisGameScoreExpectation.AD_IN);
+		tennisGame.serverHasScored();
+		assertScoreIsAsExpected(tennisGame, TennisGameScoreExpectation.GAME_IN_0);
+	}
+	
+	private void testGameOutAfterAdvantage()
+	{
+		TennisGame tennisGame = setAndTestScoreAgainstExpectation(TennisGameScoreExpectation.AD_OUT);
+		tennisGame.receiverHasScored();
+		assertScoreIsAsExpected(tennisGame, TennisGameScoreExpectation.GAME_OUT_0);
+	}
 }
