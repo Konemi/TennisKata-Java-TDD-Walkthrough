@@ -17,7 +17,10 @@ public class TennisGame
 	public String getScore()
 	{
 		if (this.serverPoints == this.receiverPoints)
-			return INDIVIDUAL_SCORE[this.serverPoints]+"-all";
+			if (this.serverPoints == 3)
+				return "deuce";
+			else
+				return INDIVIDUAL_SCORE[this.serverPoints]+"-all";
 		
 		return INDIVIDUAL_SCORE[this.serverPoints]+"-"+INDIVIDUAL_SCORE[this.receiverPoints];
 	}
