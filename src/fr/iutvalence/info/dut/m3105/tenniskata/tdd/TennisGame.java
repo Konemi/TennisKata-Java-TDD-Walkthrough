@@ -2,7 +2,7 @@ package fr.iutvalence.info.dut.m3105.tenniskata.tdd;
 
 public class TennisGame
 {
-	private final static String[] INDIVIDUAL_SCORE = new String[] {"love", "fifteen"};
+	private final static String[] INDIVIDUAL_SCORE = new String[] {"love", "fifteen", "thirty", "forty"};
 	
 	private int serverPoints;
 	
