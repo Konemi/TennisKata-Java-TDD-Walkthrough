@@ -39,7 +39,7 @@ public class TennisGame
 
 	private boolean isDeuce()
 	{
-		return this.serverPoints == POINT_AMOUNT_FOR_DEUCE_SCORE;
+		return (this.serverPoints >= POINT_AMOUNT_FOR_DEUCE_SCORE);
 	}
 
 	private String getScoreWhenDeuce()
@@ -77,12 +77,14 @@ public class TennisGame
 
 	private boolean isAdvantageOut()
 	{
-		return this.receiverPoints == POINT_AMOUNT_FOR_ADVANTAGE_SCORE;
+		if (this.receiverPoints < POINT_AMOUNT_FOR_ADVANTAGE_SCORE) return false;
+		return (this.receiverPoints == this.serverPoints+1);
 	}
 
 	private boolean isAdvantageIn()
 	{
-		return this.serverPoints == POINT_AMOUNT_FOR_ADVANTAGE_SCORE;
+		if (this.serverPoints < POINT_AMOUNT_FOR_ADVANTAGE_SCORE) return false;
+		return (this.serverPoints == this.receiverPoints+1);
 	}
 
 	public void serverHasScored()
