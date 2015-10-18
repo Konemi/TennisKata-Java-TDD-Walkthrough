@@ -6,48 +6,48 @@ import org.junit.Test;
 
 public class TennisGameTest
 {
+	private static final int TURN_AMOUNT_IN_LOOP = 10;
+
 	@Test
 	public void testScoresAgainstExpectations()
 	{
 		for (TennisGameScoreExpectation expectation : TennisGameScoreExpectation.values())
-			testScoreAgainstExpectation(expectation);
+			setAndTestScoreAgainstExpectation(expectation);
 	}
 
-	private static void testScoreAgainstExpectation(TennisGameScoreExpectation expectation)
+	private static TennisGame setAndTestScoreAgainstExpectation(TennisGameScoreExpectation expectation)
 	{		
 		TennisGame tennisGame = TennisGameScoreSetter.getTennisGameWithGivenPointsScored(expectation.getServerPoints(), expectation.getReceiverPoints());
+		assertScoreIsAsExpected(tennisGame, expectation);
+		return tennisGame;
+	}
+
+	private static void assertScoreIsAsExpected(TennisGame tennisGame, TennisGameScoreExpectation expectation)
+	{
 		assertEquals(tennisGame.getScore(), expectation.getExpectedScore());
 	}
 	
 	@Test
 	public void testDeuceLoops()
 	{
-		TennisGame tennisGame = this.setAndTestDeuceScore();
+		TennisGame tennisGame = setAndTestScoreAgainstExpectation(TennisGameScoreExpectation.DEUCE);
 		
-		for (int loopTurns=0; loopTurns<10;loopTurns++)
-		{
+		for (int loopTurns=0; loopTurns<TURN_AMOUNT_IN_LOOP;loopTurns++)
 			testDeuceLoop(tennisGame);
-		}
-	}
-	
-	private TennisGame setAndTestDeuceScore()
-	{
-		int serverPoints = TennisGameScoreExpectation.DEUCE.getServerPoints();
-		int receiverPoints = TennisGameScoreExpectation.DEUCE.getReceiverPoints();
-		TennisGame tennisGame = TennisGameScoreSetter.getTennisGameWithGivenPointsScored(serverPoints, receiverPoints);
-		assertEquals(tennisGame.getScore(), TennisGameScoreExpectation.DEUCE.getExpectedScore());
-		return tennisGame;
 	}
 	
 	private void testDeuceLoop(TennisGame tennisGame)
 	{
 		tennisGame.serverHasScored();
-		assertEquals(tennisGame.getScore(), TennisGameScoreExpectation.AD_IN.getExpectedScore());
+		assertScoreIsAsExpected(tennisGame, TennisGameScoreExpectation.AD_IN);
+		
 		tennisGame.receiverHasScored();
-		assertEquals(tennisGame.getScore(), TennisGameScoreExpectation.DEUCE.getExpectedScore());
+		assertScoreIsAsExpected(tennisGame, TennisGameScoreExpectation.DEUCE);
+		
 		tennisGame.receiverHasScored();
-		assertEquals(tennisGame.getScore(), TennisGameScoreExpectation.AD_OUT.getExpectedScore());
+		assertScoreIsAsExpected(tennisGame, TennisGameScoreExpectation.AD_OUT);
+		
 		tennisGame.serverHasScored();
-		assertEquals(tennisGame.getScore(), TennisGameScoreExpectation.DEUCE.getExpectedScore());
+		assertScoreIsAsExpected(tennisGame, TennisGameScoreExpectation.DEUCE);
 	}
 }
