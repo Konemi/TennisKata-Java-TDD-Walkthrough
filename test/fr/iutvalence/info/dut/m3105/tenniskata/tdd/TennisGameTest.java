@@ -18,4 +18,25 @@ public class TennisGameTest
 		TennisGame tennisGame = TennisGameScoreSetter.getTennisGameWithGivenPointsScored(expectation.getServerPoints(), expectation.getReceiverPoints());
 		assertEquals(tennisGame.getScore(), expectation.getExpectedScore());
 	}
+	
+	@Test
+	public void testDeuceLoops()
+	{
+		int serverPoints = TennisGameScoreExpectation.DEUCE.getServerPoints();
+		int receiverPoints = TennisGameScoreExpectation.DEUCE.getReceiverPoints();
+		TennisGame tennisGame = TennisGameScoreSetter.getTennisGameWithGivenPointsScored(serverPoints, receiverPoints);
+		assertEquals(tennisGame.getScore(), TennisGameScoreExpectation.DEUCE.getExpectedScore());
+		
+		for (int loopTurns=0; loopTurns<10;loopTurns++)
+		{
+			tennisGame.serverHasScored();
+			assertEquals(tennisGame.getScore(), TennisGameScoreExpectation.AD_IN.getExpectedScore());
+			tennisGame.receiverHasScored();
+			assertEquals(tennisGame.getScore(), TennisGameScoreExpectation.DEUCE.getExpectedScore());
+			tennisGame.receiverHasScored();
+			assertEquals(tennisGame.getScore(), TennisGameScoreExpectation.AD_OUT.getExpectedScore());
+			tennisGame.serverHasScored();
+			assertEquals(tennisGame.getScore(), TennisGameScoreExpectation.DEUCE.getExpectedScore());
+		}
+	}
 }
