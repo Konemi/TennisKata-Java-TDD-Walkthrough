@@ -16,7 +16,13 @@ public enum TennisGameScoreExpectation
 	THIRTY_FORTY(2,3,"thirty-forty"),
 	DEUCE(3,3,"deuce"),
 	AD_IN(4,3, "advantage in"),
-	AD_OUT(3,4, "advantage out");
+	AD_OUT(3,4, "advantage out"),
+	GAME_IN_0(4,0, "game in"),
+	GAME_IN_1(4,1, "game in"),
+	GAME_IN_2(4,2, "game in"),
+	GAME_OUT_0(0,4, "game out"),
+	GAME_OUT_1(1,4, "game out"),
+	GAME_OUT_2(2,4, "game out");
 	
 	private final int serverPoints;
 	
