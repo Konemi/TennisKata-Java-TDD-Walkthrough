@@ -3,6 +3,8 @@ package fr.iutvalence.info.dut.m3105.tenniskata.tdd;
 public class TennisGame
 {
 	private static final int POINT_AMOUNT_FOR_ADVANTAGE_SCORE = 4;
+	
+	private static final int POINT_AMOUNT_FOR_GAME_SCORE = 4;
 
 	private static final int POINT_AMOUNT_FOR_DEUCE_SCORE = 3;
 
@@ -54,11 +56,36 @@ public class TennisGame
 
 	private String getScoreWhenNotTied()
 	{
+		if (isGame()) return getScoreWhenGame();
+		
 		if (isAdvantage()) return getScoreWhenAdvantage();
 
 		return getScoreWhenNotTiedBelowDeuce();
 	}
 
+	private String getScoreWhenGame()
+	{
+		if (isGameIn()) return "game in";
+		return "game out";
+	}
+
+	private boolean isGame()
+	{
+		return (isGameIn() || isGameOut());
+	}
+
+	private boolean isGameIn()
+	{
+		if (this.serverPoints < POINT_AMOUNT_FOR_GAME_SCORE) return false;
+		return (this.serverPoints > this.receiverPoints+1);
+	}
+
+	private boolean isGameOut()
+	{
+		if (this.receiverPoints < POINT_AMOUNT_FOR_GAME_SCORE) return false;
+		return (this.receiverPoints > this.serverPoints+1);
+	}
+	
 	private boolean isAdvantage()
 	{
 		return (isAdvantageIn() || isAdvantageOut());
